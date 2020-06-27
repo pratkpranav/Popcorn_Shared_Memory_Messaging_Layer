@@ -64,7 +64,7 @@ static int ivshmem_send(void __iomem *data_base_addr_parted,char* buf, size_t le
 
 static int ivshmem_recv(void __iomem *data_base_addr_parted, char *buf, size_t len)
 {
-	printk(KERN_INFO "First 4 bytes: %08X\n", ioread32(data_base_addr));
+	printk(KERN_INFO "First 4 bytes: %08X\n", ioread32(data_base_addr_parted));
 	return 0;
 }
 
