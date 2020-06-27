@@ -14,3 +14,7 @@ run dmesg command on second VM you will be able to see what you have written fro
 
 
 second_phase.c: Adding Interrupts and Locks. STILL UNDER CONSTRUCTION.....
+
+
+
+final_phase.c :- Still need some modifications for running.
