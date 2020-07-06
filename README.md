@@ -18,3 +18,28 @@ second_phase.c: Adding Interrupts and Locks. STILL UNDER CONSTRUCTION.....
 
 
 final_phase.c :- Still need some modifications for running.
+
+
+----------------------------------  FINAL CODE -------------------------------------------
+
+final_arm.c :- This file has the messaging layer code to be installed in ARM processor. The code doesn't uses interrupts.
+final_x86.c :- This file has the messaging layer code to be installed in ARM processor. The code doesn't uses interrupts.
+
+Use:-
+
+1. Start the ivshmem server on host first with commands(even before starting the VMs): ivshmem-server -F -v
+2. After starting the server on host, Then start both the VMs with these command added to the initial command: -device ivshmem-doorbell,chardev=ivshmem -chardev socket,path=/tmp/ivshmem_socket,id=ivshmem (Do not leave space after or before equalto sign)
+3. Now, go to the msg_layer folder on the VMs.
+4. Add the files final_arm.c final_x86.c to ARM X86 VMs respectively.
+5. Now, change the socket.c to final_arm.c and final_x86.c respectively.
+6. make the file
+
+INFO:
+NUM_MSG: number of demo message you want to send.
+NUMBER_OF_HANDLES: number of handles(number of message to be sent at a time).
+
+CURRENT PROBLEM:
+Unable to rmmod the module.
+
+
+--------------------------------- END ----------------------------------------------------
