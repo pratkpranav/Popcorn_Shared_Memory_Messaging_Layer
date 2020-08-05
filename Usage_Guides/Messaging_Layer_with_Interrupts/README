@@ -1,0 +1,22 @@
+Messaging Layer with Interrupts:
+
+WARNING: THIS CODE IS NOT TESTED AS INTERRUPTS ARE NOT WORKING. FIRST CHECK WHETHER INTERRUPTS ARE WORKING OR NOT. THEN RUN IT.
+
+About: This code uses ivshmem-doorbell interrupts for transferring messages between the VMs. This code need interrupts to work on both the VMs to run otherwise it will not run. Hence first check whether interrupts are working on both the VMs. Using checker code. 
+
+Usage:- 
+1. Start the ivshmem server on host first with commands(even before starting the VMs): ivshmem-server -F -v -n 4
+2. After starting the server on host, Then start both the VMs with these command added to the initial command: -device ivshmem-doorbell,chardev=ivshmem -chardev socket,path=/tmp/ivshmem_socket,id=ivshmem (Do not leave space after or before equalto sign)
+3. Now, go to the msg_layer folder on the VMs.
+4. Add the files final_arm_interrupts.c final_x86_interrupts.c to ARM X86 VMs respectively.
+5. Now, change the socket.c to final_arm_interrupts.c and final_x86_interrupts.c in Makefile.
+6. run make
+7. insmod msg_Socket.ko
+
+(could tweak parameters here) 
+INFO: NUM_MSG: number of demo message you want to send. 
+NUMBER_OF_HANDLES: number of handles(maximum number of messages to be sent at a time).
+
+Problems:-
+1. Interrupt mechnanism not working from x86 to arm way.
+2. There could be more, wasn't able to test it due to above problem.
