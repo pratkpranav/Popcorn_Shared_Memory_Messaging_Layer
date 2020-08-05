@@ -1,0 +1,16 @@
+This code could be used for checking the working for interrupts mechanism.
+
+About:- This code uses ivshmem-doorbell interrupt mechanism to interrupt mechanism and could be used to check whether the doorbell interrupts are working correctly or not. I have already configured it for using 4 MSI-X vector at a time. Two things you need to keep in mond while using this code
+i. DEST_ID -> destination whom you want to send interrupt. It is actually the peer id assigned by the ivshmem-server while VM installed.
+ii. Checking dmesg whether the interrupt handlers ran or not. 
+
+Usage:- 
+1. start the ivshmem server on host first with commands(even before starting the VMs): ivshmem-server -F -v -n 4
+2. After starting the server on host, Then start both the VMs with these command added to the initial command: -device ivshmem-doorbell,chardev=ivshmem -chardev socket,path=/tmp/ivshmem_socket,id=ivshmem (Do not leave space after or before equalto sign)
+3. Rename the object files with the name of file you want to run.
+4. first run sudo insmod x86.ko/arm.ko (source from where you want to send interrupts)
+5. then run sudo insmod x86.ko/arm.ko (on the destination VM) run dmesg command on second VM you will be able to see what you have written from other VM. 
+
+
+Problems: 
+1. Couldn't rmmod. Need to restart VM every time you use it. 
